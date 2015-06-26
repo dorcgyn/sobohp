@@ -8,7 +8,15 @@ public class User {
 	private String email;
 	private String comments;
 	
+	private String tempPwd;
 	
+	
+	public String getTempPwd() {
+		return tempPwd;
+	}
+	public void setTempPwd(String tempPwd) {
+		this.tempPwd = tempPwd;
+	}
 	public int getId() {
 		return id;
 	}

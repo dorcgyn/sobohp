@@ -20,4 +20,17 @@ public class EmailService {
 		
 		EmailSender.send(targetEmailAddr, subject, content);
 	}
+	
+	public static void notifyTempPwd(User user, String tempPwd) {
+		String targetEmailAddr = user.getEmail();
+		
+		String subject = "You generate an Temp Password!";
+		
+		String content = "Hi, " + user.getUsername() + "\n\n" +
+				"You try to find your password. Your temp Password is: " + tempPwd + "\n\n" +
+				"Please click following url to ACTIVE your temp password:" + "\n" + 
+				"http://sobohp.com/SoboHp/user/activeTempPwd?user_id=" + user.getId() + "&tempPwd=" +  tempPwd;
+		
+		EmailSender.send(targetEmailAddr, subject, content);
+	}
 }

@@ -31,8 +31,30 @@ public class UserDao {
            user.setPassword(rs.getString("password"));
            user.setEmail(rs.getString("email"));
            user.setComments(rs.getString("comments"));
+           user.setTempPwd(rs.getString("tempPwd"));
            users.add(user);
         }
 		return users;
 	}
+	
+	public static void updateUserPwd(int id, String newPwd) throws Exception  {
+		String sql = "update soboHp.user_t set password = ? where id = ?;"; 
+		PreparedStatement  statement = 
+				ConnectionManager.getConnection().prepareStatement(sql);
+		
+		statement.setString(1, newPwd);
+		statement.setInt(2, id);
+		statement.execute();
+	}
+	
+	public static void updateTempPwd(int userId, String tempPwd) throws Exception  {
+		String sql = "update soboHp.user_t set tempPwd = ? where id = ?;"; 
+		PreparedStatement  statement = 
+				ConnectionManager.getConnection().prepareStatement(sql);
+		
+		statement.setString(1, tempPwd);
+		statement.setInt(2, userId);
+		statement.execute();
+	}
+	
 }

@@ -23,15 +23,16 @@ public class EmailSender {
 				"javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.port", "465");
- 
-		Session session = Session.getDefaultInstance(props,
-			new javax.mail.Authenticator() {
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(FROM_ADDR, EMAIL_PASSWORD);
-				}
-			});
- 
 		try {
+			
+			Session session = Session.getDefaultInstance(props,
+				new javax.mail.Authenticator() {
+					protected PasswordAuthentication getPasswordAuthentication() {
+						return new PasswordAuthentication(FROM_ADDR, EMAIL_PASSWORD);
+					}
+				});
+ 
+		
  
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(FROM_ADDR));
@@ -41,10 +42,8 @@ public class EmailSender {
 			message.setText(content);
  
 			Transport.send(message);
-
- 
 		} catch (MessagingException e) {
-			throw new RuntimeException(e);
+			// throw new RuntimeException(e);
 		}
 	}
 }

@@ -64,15 +64,23 @@ public class HomeController {
 		
 		try {
 			int userId = Integer.valueOf(request.getParameter("user_id"));
+			String password = request.getParameter("password");
 			HttpSession session = request.getSession();
 			
 			User user = UserDao.getUserById(userId);
+			if (user.getPassword() != null && !user.getPassword().equals(password)) {
+				model.addAttribute("title", "Login Fail!");
+				model.addAttribute("msg", "Login Fail: Username and Password does't match!!!");
+				return "loginFail";
+			}
+			
 			model.addAttribute("user", user);
 			session.setAttribute(USER, user);
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("errMsg", e.getMessage());
-			return "error";
+			model.addAttribute("title", "Login Fail!");
+			model.addAttribute("msg", e.getMessage());
+			return "loginFail";
 		}
 		
 		return "home";
